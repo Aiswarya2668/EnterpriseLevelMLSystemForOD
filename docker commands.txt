@@ -1,0 +1,43 @@
+The system must support docker and have docker desktop installed.
+
+
+1) For building the docker image (Run this only the first time):
+
+    sudo docker image build -t flask_object_detection .
+    
+This command to build a Docker image named "flask_object_detection". 
+The image will be built using the Dockerfile in the current directory 
+(where the command is being executed from).
+The "." at the end of the command is the build context, 
+which is the set of files and directories that are sent to the Docker daemon 
+for building the image. In this case, the current directory and its
+contents will be included in the build context. The "sudo" part of the command
+I added because it was necessary depending on the permissions on my system.
+It is used to run the command with administrative privileges.
+    
+2) For running the object detection application through docker:
+
+    sudo docker run -p 5000:5000 -d flask_object_detection
+
+The container runs the image built from the Dockerfile with the same name
+"flask_object_detection". The "-p" option specifies the port mapping between 
+the container and the host machine. Port 5000 is commonly used for Flask applications,
+so the container should be accessible at http://localhost:5000. 
+The "-d" option runs the container in detached mode, meaning that
+the container will run in the background and won't occupy the terminal window.
+
+3) List all running containers/applications :
+
+    sudo docker ps
+
+This command lists all running Docker containers along with their
+details such as container ID, image name, command being run,
+creation time, status, and ports exposed.
+
+4) Stop a docker container / application :
+
+    sudo docker stop <container-id>
+
+ This will gracefully stop the container and free up its resources. 
+ If  want to force stop the container,  can use the "docker kill" command instead.
+ note: container-id can be obtained from "docker ps" command
